@@ -6,6 +6,7 @@ import com.admin.pharma.model.User;
 import com.admin.pharma.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class UserLoginController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserLoginController.class);
     private final UserService userService;
 
-    @Inject
+    @Autowired
     public UserLoginController(final UserService userService) {
         this.userService = userService;
     }
@@ -52,7 +53,6 @@ public class UserLoginController {
     }
 
     @CrossOrigin
-    @Cacheable
     @ResponseBody
     @RequestMapping(value = "/userID", method = RequestMethod.GET, produces = "application/json")
     private User getUser() {

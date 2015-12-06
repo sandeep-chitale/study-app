@@ -5,6 +5,7 @@ import com.admin.pharma.enums.UserType;
 import com.admin.pharma.model.User;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -68,7 +69,7 @@ public class UserRepository implements IUserRepo{
 
         return (ids.size() > 0) ? false : true;
     }
-
+    @Cacheable
     public User getUserDetail(String id) {
         JdbcTemplate template = dbAccess.getJDBCTemplate();
         // (query, QueryParam,RowMapper (returns the result set)
