@@ -1,0 +1,40 @@
+A Trie, also called a Prefix Tree, is a tree structure that stores words with a common prefix under the same sequence of edges in the tree eliminating the need for storing the same prefix each time for each word. From Wikipedia:
+A trie, or prefix tree, is an ordered tree data structure that is used to store an associative array where the keys are usually strings. Unlike a binary search tree, no node in the tree stores the key associated with that node; instead, its position in the tree shows what key it is associated with. All the descendants of a node have a common prefix of the string associated with that node, and the root is associated with the empty string.
+Please read the Wikipedia entry to learn the advantages of a Trie over other data structures in terms of searching and sorting. We will focus on building a Trie in this post.
+
+Today we will build a simple Trie structure that does only two operations - Insert and Search/Find. We will also add a print function for convenience of seeing the tree on screen. For simplicity, let's assume all the words/strings we want to store consist of lowercase letters only.
+
+First, we need a way to represent each Node in the tree. The following simple class represents a Trie node in our case:
+
+
+The "letter" member field stores the leading letter in the word starting from the root node the the current node. 
+The "links" field contain references to child nodes that contain the next letter of the child words that share a common prefix (consisting of all the letters beginning from the root node the current node). 
+The "fullWord" field indicates whether the current letter marks the end of a valid word in the dictionary and also at the same time is a valid prefix of one or more other words.
+
+an,ant,all,are,alloy,allot,ate,be
+
+													empty
+													/  \
+													a	b
+										/	/	/   /      \e (y)
+										n	l  r 	t
+									 /      /
+									t	  l
+									
+Algo
+
+Algorithms for inserting a a word into a Trie:
+
+1. Set current node to root node. The root node does not contain any letter (initialized to the null character for convenience).
+2. Set the current letter to the first letter in the word. 
+3. If the current node already has an existing reference to the current letter (through one of the elements in the "links" field) then set current node to that referenced node; else create a new node, set the letter to current letter, and set current node to this new node.
+4. Repeat step 3 until all letters in the current word has been processed.
+
+Algorithm for searching for a word in the Trie:
+
+1. Set current node to root node. Set the current letter to the first letter in the word. 
+2. If the current node is null then the word does not exist in the Trie.
+3. If the current node reference to a valid node containing the current letter then set current node to that referenced node and set current letter to the letter in the new current node.
+4. Repeat steps 2 and 3 until all letters in the word has been processed.
+5. Now there are two possibilities that may indicate the letter is not there in the tree: a) the current letter is the last letter and there is no valid node containing this letter, and b) there is a valid node containing the last letter but the node does not indicate it contains a full word (marked with the "fullWord" boolean field.
+6. If step the conditions in step 5 are not met, then we have a match for the word in the Trie.

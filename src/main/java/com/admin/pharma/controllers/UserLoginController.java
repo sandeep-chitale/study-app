@@ -53,12 +53,16 @@ public class UserLoginController {
     }
 
     @CrossOrigin
-    @ResponseBody
-    @RequestMapping(value = "/userID", method = RequestMethod.GET, produces = "application/json")
-    private User getUser() {
-        return  userService.getUser("1");
+    @RequestMapping(path = "/getUser", method = RequestMethod.GET, produces = "application/json")
+    private User getUser(@RequestParam final String id) {
+        return  userService.getUser(id);
     }
 
+//    @CrossOrigin
+//    @RequestMapping(value = "/getUser", method = RequestMethod.GET, produces = "application/json")
+//    private User getUser(@RequestParam final String id) {
+//        return  userService.getUser(id);
+//    }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)

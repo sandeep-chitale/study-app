@@ -4,6 +4,7 @@ import com.admin.pharma.model.User;
 import com.admin.pharma.repository.UserRepository;
 import com.admin.pharma.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,7 +38,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Cacheable("getUser")
     public User getUser(String id) {
-        return userRepo.getUserDetail(id);
+        User u =userRepo.getUserDetail(id);
+        return (u==null)? new User():u;
     }
 }

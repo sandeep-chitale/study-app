@@ -69,7 +69,7 @@ public class UserRepository implements IUserRepo{
 
         return (ids.size() > 0) ? false : true;
     }
-    @Cacheable
+    //@Cacheable
     public User getUserDetail(String id) {
         JdbcTemplate template = dbAccess.getJDBCTemplate();
         // (query, QueryParam,RowMapper (returns the result set)

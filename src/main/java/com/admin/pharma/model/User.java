@@ -5,6 +5,9 @@ import com.admin.pharma.enums.UserType;
 import com.google.common.base.Objects;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.cache.annotation.EnableCaching;
+
+import java.io.Serializable;
 
 //import javax.persistence.Column;
 //import javax.persistence.Entity;
@@ -18,7 +21,8 @@ import lombok.Setter;
 @Getter
 @Setter
 //@Entity
-public class User {
+@EnableCaching
+public class User implements Serializable{
 //    @Id
 //    @NotNull
 //    @Size(max = 64)
@@ -32,7 +36,7 @@ public class User {
 
     private UserType type = UserType.NORMAL_USER;
 
-    User() {
+    public User() {
     }
     public User(String id,String password,UserType type) {
         this.id = id;
